@@ -40,6 +40,9 @@ done << EOF
 $lpass_response
 EOF
 
+# printf "%s\n" "${list_of_results[@]}" # Uncomment to debug
+# echo "$lpass_response"                # Uncomment to debug
+
 # Check if all secrets in the list have the same component name
 if [[ "$(printf "%s\n" "${list_of_results[@]}" | uniq -c | wc -l)" -eq 1 ]]; then
     echo "All secrets in the list are for the component: ${list_of_results[0]}"
