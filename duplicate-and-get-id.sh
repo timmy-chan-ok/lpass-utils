@@ -4,16 +4,14 @@
 #5343706986289480045
 
 if [[ -z "$1" ]]; then
-    set -- "1038559031490683608"
-    SEARCH_QUERY=$1
-    #read -p "Hvilken lpass-cli search query? (eks. 'okonomi-epay-api.test.jms'): " SEARCH_QUERY
+    read -p "Hvilken lpass secret ID? (eks. '5343706986289480045'): " LASTPASS_ID_ORIGINAL
 else
-    SEARCH_QUERY=$1
+    LASTPASS_ID_ORIGINAL=$1
 fi
 
 lpass_response="[empty response]"
 
-lpass_response=$(lpass show -G "$SEARCH_QUERY") #>/dev/null
+lpass_response=$(lpass show -G "$LASTPASS_ID_ORIGINAL") #>/dev/null
 
 # Hvis det er ingen resultater fra lastpass. Avslutt skriptet
 if [ $? -ne 0 ]; then
@@ -26,20 +24,18 @@ fi
 # Ask user if it wants to clone the passwords from the results.
 #------------------------------------------------------------------
 echo "$lpass_response"
-while true; do
-    echo 
-    read -p "Do you wish to clone the secret? " yn
-    case $yn in
-        [Yy]* ) echo; break;;
-        [Nn]* ) echo " > None cloned"; exit;;
-        * ) echo " > Please answer yes or no.";;
-    esac
-done
+# while true; do
+#     echo 
+#     read -p "Do you wish to clone the secret? " yn < /dev/tty
+#     case $yn in
+#         [Yy]* ) echo; break;;
+#         [Nn]* ) echo " > None cloned"; exit;;
+#         * ) echo " > Please answer yes or no.";;
+#     esac
+#     sleep 1  # Wait for 1 second before the next iteration
+# done
 
 lpass_response=$(echo "$lpass_response" | head -n 1)
-
-A=$(./extract-component-name.sh "$lpass_response")
-echo $A
 
 
 path=$(echo "$lpass_response" | sed 's/ \[id: .*$//')
@@ -94,7 +90,7 @@ echo "Sync completed successfully."
 
 new_id=$(echo "$new_lastpass_response" | grep -v " \[id: $id\]" | grep -oP 'id: \K\d+')
 
-echo New ID: "$new_id".
+echo "$new_id".
 
 # Rename and add " - Copy" suffix to the name of the secret
-echo "$path - Copy" | lpass edit --non-interactive --name "$new_id"
+#echo "$path - Copy" | lpass edit --non-interactive --name "$new_id"

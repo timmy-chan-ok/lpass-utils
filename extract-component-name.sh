@@ -23,7 +23,6 @@ list_of_results=()
 #         remove all the characters after the first . in A
 #     store A in list_of_results
 # print list_of_results
-list_of_results=()
 
 while IFS= read -r line; do
     A="$line"
