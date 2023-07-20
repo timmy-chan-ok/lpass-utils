@@ -1,6 +1,0 @@
-Script started on 2023-06-23 14:56:14+02:00 [TERM="xterm-256color" TTY="/dev/pts/11" COLUMNS="165" LINES="17"]
-[36mShared-secrets-okonomi-test/[0m[34m[1mokonomi-ordre-api.test.jms.activemq.user[0m[32m [id: 1038559031490683608][0m
-[33mURL[0m: http://sn
-[33mNotes[0m: okonomi
-
-Script done on 2023-06-23 14:56:14+02:00 [COMMAND_EXIT_CODE="0"]
